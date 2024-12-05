@@ -28,7 +28,7 @@ std::string reverse_x(std::string r) {
 bool checkWord(std::string word) {
   if (word == "MAS") {
     return true;
-  } else if (reverse_x(word) == "MAS") {
+  } else if (word == "SAM") {
     return true;
   }
   return false;
@@ -45,14 +45,16 @@ long long countSubWords(std::vector<std::string> element) {
       // diagona principal
       if (i + SIZE_WORD - 1 < size_v && j + SIZE_WORD - 1 < size_h &&
           j - SIZE_WORD - 1 >= 0) {
-          aux_check.clear();
+        aux_check.clear();
         for (long long x = 0; x < SIZE_WORD; x++) {
           aux_check += element[i + x][j + x];
         }
         if (checkWord(aux_check)) {
+        aux_check.clear();
           for (long long x = 0; x < SIZE_WORD; x++) {
             aux_check += element[i + x][j + 2 - x];
           }
+          std::cout << aux_check << "\n";
           if (checkWord(aux_check)) {
             counts++;
           }
@@ -102,12 +104,7 @@ long long countSubWords(std::vector<std::string> element) {
     //  }
     //}
   }
-  if (counts == 2) {
-    return 1;
-  } else {
-    return 0;
-  }
-  // return counts;
+  return counts;
 }
 
 int main() {
@@ -115,23 +112,23 @@ int main() {
   auto input = readInput();
   long result = 0;
   int sum;
-    result += countSubWords(input);
-  //for (int i = 0; i < input.size(); i++) {
-  //  for (int j = 0; j < input[0].size(); j++) {
-  //    std::string aux = "";
-  //    vs sub_m;
-  //    if (i + 2 < input.size() && j + 2 < input[0].size()) {
-  //      for (int x = 0; x < 3; x++) {
-  //        for (int y = 0; y < 3; y++) {
-  //          aux += input[i + x][j + y];
-  //        }
-  //        sub_m.push_back(aux);
-  //        aux.clear();
-  //      }
-  //      result += countSubWords(sub_m);
-  //    }
-  //  }
-  //}
+  result += countSubWords(input);
+  // for (int i = 0; i < input.size(); i++) {
+  //   for (int j = 0; j < input[0].size(); j++) {
+  //     std::string aux = "";
+  //     vs sub_m;
+  //     if (i + 2 < input.size() && j + 2 < input[0].size()) {
+  //       for (int x = 0; x < 3; x++) {
+  //         for (int y = 0; y < 3; y++) {
+  //           aux += input[i + x][j + y];
+  //         }
+  //         sub_m.push_back(aux);
+  //         aux.clear();
+  //       }
+  //       result += countSubWords(sub_m);
+  //     }
+  //   }
+  // }
   std::cout << result << "\n";
   return 0;
 }
