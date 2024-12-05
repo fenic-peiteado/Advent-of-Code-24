@@ -20,8 +20,7 @@ typedef std::vector<ll> vll;
 typedef std::vector<std::pair<ll, ll>> vp;
 
 vp extrac_mult(std::string linex) {
-  std::regex pattern1("(.*?)(don't\\(\\).*?)(do\\(\\).*?)");
-  std::cout << linex << "\n";
+  std::regex pattern1("(.*?)(don't\\(\\).*?)(do\\(\\).*?)");  
   std::string line = std::regex_replace(linex, pattern1, "$1$3");
   std::string line1 = line;
   bool posibly_change = true;
@@ -33,7 +32,6 @@ vp extrac_mult(std::string linex) {
       posibly_change = false;
     }
   }
-  std::cout << "\n" << line << "\n";
   std::regex pattern("(mul)\\((\\d?\\d?\\d?),(\\d?\\d?\\d?)\\)");
   auto search = std::regex_search(line, pattern);
   std::smatch coincidencia;
@@ -43,10 +41,6 @@ vp extrac_mult(std::string linex) {
   vp result;
   for (auto i = words_begin; i != words_ends; ++i) {
     std::smatch match = *i;
-    std::cout << match[0].str() << "\n";
-    std::cout << match[1].str() << "\n";
-    std::cout << match[2].str() << "\n";
-    std::cout << match[3].str() << "\n";
     auto element = std::make_pair(stoi(match[2].str()), stoi(match[3].str()));
     result.push_back(element);
   }

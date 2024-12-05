@@ -20,6 +20,8 @@ typedef std::vector<vs> vvs;
 typedef std::vector<ll> vll;
 typedef std::vector<std::pair<ll, ll>> vp;
 typedef std::vector<std::vector<long long>> matriz;
+typedef std::unordered_multimap<std::string, std::string> umapss;
+
 
 int main() {
   // Example of reading
@@ -74,9 +76,23 @@ int main() {
       }
       if (must_be_use) {
         good_list.push_back(list);
-      }else {
-        bad_list.push_back(list);
       }
+    } else { // bad ordererd
+      for(int i = 0; i < list.size(); i++) {
+        for(int j = i; j < list.size(); j++) {
+          std::string first = list[i];
+          std::string second_value = list[j];
+          auto range = danger_list.equal_range(first);
+          for(auto it = range.first; it != range.second;it++) {
+            if (it->second == second_value) {
+              list[i] = list[j];
+              list[j] = first;
+              j = i;
+            }
+          }
+        }
+      }
+      bad_list.push_back(list);
     }
   }
   vs output;
