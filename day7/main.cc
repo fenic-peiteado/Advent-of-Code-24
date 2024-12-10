@@ -47,6 +47,7 @@ int main() {
     for (long long mask = 0; mask < limit; mask++) {
       std::bitset<32> mask_bits(mask);
       for (long long mask2 = 0; mask2 < limit; mask2++) {
+        bool flag_error = false;
         std::bitset<32> mask_bits_2(mask2);
         unsigned long long result = number_sequence[i][1];
         // std::cout << "mask: " << mask_bits << " mask2: " << mask_bits_2
@@ -60,29 +61,20 @@ int main() {
             }
           } else {
             if (mask_bits[l] == 0) {  // 1 0 ||  operator concatenar
+                          flag_error = true;
+              break;
               result = stoll(std::to_string(result) +
                              std::to_string(number_sequence[i][l + 2]));
             } else {  // 1 1
                       // Esta combinacion no esta permitida se sale
+              flag_error = true;
               break;
             }
           }
-
-          // if (mask_bits[l] == 0) {
-          //   result += number_sequence[i][l + 2];  // se accede al numero
-          //   menos
-          //                                         // significativo se
-          //                                         empieza en
-          //                                         // 32 y descontando
-          // } else {
-          //   result *= number_sequence[i][l + 2];
-          // }
-          //  std::cout << result << std::endl;
         }
-        if (result == number_to_find) {
+        if (result == number_to_find && !flag_error) {
           result_final += result;
           flag = true;
-          break;
         }
       }
       if (flag) {
